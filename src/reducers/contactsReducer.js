@@ -1,10 +1,8 @@
 import { STAR_CONTACT, EDIT_CONTACT, REMOVE_CONTACT } from '../actions/actionTypes';
 import contactsMockupData from '../data/contacts-mockup-data.json';
-
-const initialState = {
-  contacts: contactsMockupData,
-  favorites: []
-};
+const initialState = contactsMockupData.map(contact => {
+  return { ...contact, favorite: false };
+});
 
 /**
  * @param {Object} state
@@ -13,35 +11,31 @@ const initialState = {
  */
 export default function contactsReducer(state = initialState, action) {
   switch (action.type) {
-    case STAR_CONTACT:
-      return {
-        ...state,
-        favorites: [
-          ...state.favorites,
-          state.contacts.find(contact => contact.id === action.contactId)
-        ]
+    case STAR_CONTACT: {
+      const contactIndex = state.findIndex(contact => contact.id === action.contactId);
+      const updatedContacts = [...state];
+      updatedContacts[contactIndex] = {
+        ...updatedContacts[contactIndex],
+        favorite: !updatedContacts[contactIndex].favorite
       };
 
-    case EDIT_CONTACT:
-      var contactIndex = state.contacts.find(contact => contact.id === action.contactId);
-      var updatedContacts = [...state.contacts];
+      return updatedContacts;
+    }
+
+    case EDIT_CONTACT: {
+      const contactIndex = state.findIndex(contact => contact.id === action.contactId);
+      const updatedContacts = [...state];
       updatedContacts[contactIndex] = {
         ...updatedContacts[contactIndex],
         ...action.data
       };
 
-      return {
-        ...state,
-        contacts: updatedContacts
-      };
+      return updatedContacts;
+    }
 
-    case REMOVE_CONTACT:
-      var removeContact = contact => contact.id !== action.contactId;
-
-      return {
-        ...state.contacts.filter(removeContact),
-        ...state.favorites.filter(removeContact)
-      };
+    case REMOVE_CONTACT: {
+      return state.filter(contact => contact.id !== action.contactId);
+    }
 
     default:
       return state;

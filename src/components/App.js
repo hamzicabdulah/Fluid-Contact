@@ -8,9 +8,17 @@ class App extends Component {
     return (
       <Table>
         <TableBody>
-          <ContactListItem></ContactListItem>
+          <ContactListItem
+            id={1}
+            picture_url="https=//goo.gl/i8H1GJ"
+            name="Abdulah Hamzic"
+            email="abdulahhamzic@gmail.com"
+            phone_number="+38977605851"
+            favorite={false}
+          >
+          </ContactListItem>
         </TableBody>
-      </Table>
+      </Table >
     );
   }
 }
