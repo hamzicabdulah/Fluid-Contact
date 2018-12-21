@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+import ContactListItem from './ContactListItem';
+import Table from '@material-ui/core/Table';
+import { TableBody } from '@material-ui/core';
 
 class App extends Component {
   render() {
     return (
-      <Button variant="contained" color="primary">
-        Hello World
-      </Button>
+      <Table>
+        <TableBody>
+          <ContactListItem></ContactListItem>
+        </TableBody>
+      </Table>
     );
   }
 }
