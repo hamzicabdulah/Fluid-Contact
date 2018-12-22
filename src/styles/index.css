@@ -1,0 +1,38 @@
+.contact_first_letter {
+  color: purple !important;
+  padding-right: 5px !important;
+}
+
+.contact_full_name {
+  font-weight: 500 !important;
+}
+
+.contact_action_butons {
+  width: 20%;
+}
+
+@media only screen and (max-width: 1024px) {
+  /* For mobile: */
+  .contact_email {
+    display: none !important;
+  }
+
+  .contact_action_butons {
+    width: 30% !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile: */
+  .contact_full_name {
+    padding: 5px !important;
+  }
+
+  .contact_email, .contact_phone_number {
+    display: none !important;
+  }
+
+  .contact_action_butons {
+    width: 35%;
+  }
+}

@@ -8,6 +8,10 @@ import TableBody from '@material-ui/core/TableBody';
 import ContactListItem from './ContactListItem';
 
 export default function ContactListTable({ contacts, title }) {
+  const contactsSorted = contacts.sort((lastContactName, contact) => {
+    return (lastContactName > contact.name) ? 1 : -1;
+  });
+
   return (
     <Table className="contacts_list">
       <TableHead>
@@ -17,9 +21,15 @@ export default function ContactListTable({ contacts, title }) {
       </TableHead>
       <TableBody>
         {
-          contacts.sort((lastContactName, contact) => {
-            return (lastContactName > contact.name) ? 1 : -1;
-          }).map(contact => <ContactListItem {...contact} key={contact.id} />)
+          contactsSorted.map((contact, index) =>
+            <ContactListItem
+              {...contact}
+              firstOfLetter={
+                !contactsSorted[index - 1] || contact.name[0] !== contactsSorted[index - 1].name[0]
+              }
+              key={contact.id}
+            />
+          )
         }
       </TableBody>
     </Table>

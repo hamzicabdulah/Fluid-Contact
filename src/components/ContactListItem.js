@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Grid from '@material-ui/core/Grid';
 import { starContact, removeContact } from '../actions/contactActions';
 
 class ContactListItem extends Component {
@@ -24,7 +25,9 @@ class ContactListItem extends Component {
         onMouseOver={this.handleTableRowHover}
         onMouseOut={this.handleTableRowMouseOut}
       >
-        <TableCell padding="none" className="placeholder"><Icon></Icon></TableCell>
+        <TableCell padding="dense" className="contact_first_letter">
+          {this.props.firstOfLetter ? <h2>{this.props.name[0]}</h2> : <Icon />}
+        </TableCell>
 
         <TableCell
           align="right"
@@ -53,46 +56,48 @@ class ContactListItem extends Component {
           align="right"
           className="contact_action_buttons"
         >
-          <IconButton
-            aria-label="Favorite"
-            className="contact_favorite_button"
-            onClick={this.handleStarClick}
-          >
-            <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
-          </IconButton>
+          <Grid style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}>
+            <IconButton
+              aria-label="Favorite"
+              className="contact_favorite_button"
+              onClick={this.handleStarClick}
+            >
+              <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
+            </IconButton>
 
-          <IconButton
-            aria-label="Edit"
-            className="contact_edit_button"
-            onClick={this.handlePenClick}
-          >
-            <Icon>create</Icon>
-          </IconButton>
+            <IconButton
+              aria-label="Edit"
+              className="contact_edit_button"
+              onClick={this.handlePenClick}
+            >
+              <Icon>create</Icon>
+            </IconButton>
 
-          <IconButton
-            aria-owns={this.state.optionsMenu ? 'options-menu' : undefined}
-            aria-haspopup="true"
-            aria-label="Options"
-            className="contact_options_button"
-            onClick={this.handleOptionsClick}
-          >
-            <Icon>more_vert</Icon>
-          </IconButton>
+            <IconButton
+              aria-owns={this.state.optionsMenu ? 'options-menu' : undefined}
+              aria-haspopup="true"
+              aria-label="Options"
+              className="contact_options_button"
+              onClick={this.handleOptionsClick}
+            >
+              <Icon>more_vert</Icon>
+            </IconButton>
 
-          <Menu
-            id="option-menu"
-            anchorEl={this.state.optionsMenu}
-            open={Boolean(this.state.optionsMenu)}
-            className="options_menu"
-            onClose={this.handleOptionsClose}
-          >
-            <MenuItem className="remove_button" onClick={this.handleDeleteClick}>
-              <ListItemIcon>
-                <Icon className="remove_icon">delete</Icon>
-              </ListItemIcon>
-              Delete
-            </MenuItem>
-          </Menu>
+            <Menu
+              id="option-menu"
+              anchorEl={this.state.optionsMenu}
+              open={Boolean(this.state.optionsMenu)}
+              className="options_menu"
+              onClose={this.handleOptionsClose}
+            >
+              <MenuItem className="remove_button" onClick={this.handleDeleteClick}>
+                <ListItemIcon>
+                  <Icon className="remove_icon">delete</Icon>
+                </ListItemIcon>
+                Delete
+              </MenuItem>
+            </Menu>
+          </Grid>
         </TableCell>
       </TableRow>
     );
@@ -158,7 +163,8 @@ ContactListItem.propTypes = {
   email: PropTypes.string.isRequired,
   phone_number: PropTypes.string.isRequired,
   favorite: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  firstOfLetter: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 /**
@@ -166,7 +172,7 @@ ContactListItem.propTypes = {
  * @returns {String} - Avatar image URL
  */
 function getRandomAvatar(name) {
-  return `https://robohash.org/${name}.png`
+  return `https://robohash.org/${name}.png`;
 }
 
 export default connect()(ContactListItem);
