@@ -11,12 +11,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import { starContact, removeContact } from '../actions/contactActions';
+import ContactFormModal from './ContactFormModal';
 
 class ContactListItem extends Component {
   state = {
     optionsMenu: null,
-    showActionButtons: false
+    showActionButtons: false,
+    showContactFormModal: false
   };
+
+  fullName = `${this.props.firstName} ${this.props.lastName}`;
 
   render() {
     return (
@@ -26,7 +30,7 @@ class ContactListItem extends Component {
         onMouseOut={this.handleTableRowMouseOut}
       >
         <TableCell padding="dense" className="contact_first_letter">
-          {this.props.firstOfLetter ? <h2>{this.props.name[0]}</h2> : <Icon />}
+          {this.props.firstOfLetter ? <h2>{this.props.firstName[0]}</h2> : <Icon />}
         </TableCell>
 
         <TableCell
@@ -35,13 +39,13 @@ class ContactListItem extends Component {
           className="contact_avatar"
         >
           <Avatar
-            alt={this.props.name}
-            src={this.props.picture_url || getRandomAvatar(this.props.name)}
+            alt={this.fullName}
+            src={getRandomAvatar(this.fullName)}
           />
         </TableCell>
 
         <TableCell align="left" className="contact_full_name">
-          {this.props.name}
+          {this.fullName}
         </TableCell>
 
         <TableCell className="contact_email">
@@ -49,7 +53,7 @@ class ContactListItem extends Component {
         </TableCell>
 
         <TableCell className="contact_phone_number">
-          {this.props.phone_number}
+          {this.props.phoneNumber}
         </TableCell>
 
         <TableCell
@@ -99,6 +103,12 @@ class ContactListItem extends Component {
             </Menu>
           </Grid>
         </TableCell>
+        <ContactFormModal
+          {...this.props}
+          open={this.state.showContactFormModal}
+          handleClose={this.handleContactFormModalClose}
+          new={false}
+        />
       </TableRow>
     );
   }
@@ -128,7 +138,14 @@ class ContactListItem extends Component {
    * Open modal for contact editing
    */
   handlePenClick = () => {
-    // Modal should be opened here
+    this.setState({ showContactFormModal: true });
+  }
+
+  /**
+   * Close modal for contact editing
+   */
+  handleContactFormModalClose = () => {
+    this.setState({ showContactFormModal: false });
   }
 
   /**
@@ -158,13 +175,16 @@ class ContactListItem extends Component {
 
 ContactListItem.propTypes = {
   id: PropTypes.number.isRequired,
-  picture_url: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  phone_number: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  phoneNumber: PropTypes.string.isRequired,
+  company: PropTypes.string,
+  jobTitle: PropTypes.string,
+  notes: PropTypes.string,
   favorite: PropTypes.bool.isRequired,
   firstOfLetter: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 /**

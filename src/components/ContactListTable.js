@@ -9,7 +9,7 @@ import ContactListItem from './ContactListItem';
 
 export default function ContactListTable({ contacts, title }) {
   const contactsSorted = contacts.sort((lastContactName, contact) => {
-    return (lastContactName > contact.name) ? 1 : -1;
+    return (lastContactName > contact.firstName) ? 1 : -1;
   });
 
   return (
@@ -25,7 +25,7 @@ export default function ContactListTable({ contacts, title }) {
             <ContactListItem
               {...contact}
               firstOfLetter={
-                !contactsSorted[index - 1] || contact.name[0] !== contactsSorted[index - 1].name[0]
+                !contactsSorted[index - 1] || contact.firstName[0] !== contactsSorted[index - 1].firstName[0]
               }
               key={contact.id}
             />
