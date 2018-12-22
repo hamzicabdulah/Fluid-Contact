@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
+import { editContact } from '../actions/contactActions';
 //import { editContact } from '../actions/contactActions';
 
 class ContactFormModal extends Component {
@@ -35,7 +36,7 @@ class ContactFormModal extends Component {
   render() {
     return (
       <Dialog
-        open={this.props.open}
+        open={true}
         aria-labelledby="contact-form-title"
         className="contact_form_modal"
         onClose={this.props.handleClose}
@@ -122,7 +123,7 @@ class ContactFormModal extends Component {
             Cancel
           </Button>
           <Button
-            onClick={this.props.handleClose}
+            onClick={this.handleContactSave}
             color="primary"
             className="contact_form_save_button"
           >
@@ -133,15 +134,6 @@ class ContactFormModal extends Component {
       </Dialog >
     );
   }
-
-  /**
-   * @param {String} name
-   */
-  handleTextFieldChange = (name) => (event) => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
 
   /**
    * Create a Material UI text field given just the label
@@ -170,10 +162,26 @@ class ContactFormModal extends Component {
       />
     );
   }
+
+  /**
+   * @param {String} name
+   */
+  handleTextFieldChange = (name) => (event) => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
+  /**
+   * Update the contact or create a new one in the state
+   */
+  handleContactSave = () => {
+    this.props.dispatch(editContact(this.props.id, this.state));
+    this.props.handleClose();
+  };
 }
 
 ContactFormModal.propTypes = {
-  open: PropTypes.bool.isRequired,
   new: PropTypes.bool.isRequired,
   id: PropTypes.number,
   firstName: PropTypes.string,
@@ -183,7 +191,8 @@ ContactFormModal.propTypes = {
   company: PropTypes.string,
   jobTitle: PropTypes.string,
   notes: PropTypes.string,
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect()(ContactFormModal);
