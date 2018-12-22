@@ -1,7 +1,7 @@
 import { STAR_CONTACT, EDIT_CONTACT, REMOVE_CONTACT } from './actionTypes';
 
 /**
- * Return an action that is used to add a contact to favorites
+ * Return an action that is used to add a contact to starred contacts
  * 
  * @param {String} contactId 
  * @returns {Object}

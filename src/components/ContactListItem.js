@@ -26,7 +26,7 @@ class ContactListItem extends Component {
         onMouseOut={this.handleTableRowMouseOut}
       >
         <TableCell padding="dense" className="contact_first_letter">
-          {this.props.firstOfLetter ? <h2>{this.props.name[0]}</h2> : <Icon />}
+          {this.props.firstOfLetter ? <h2>{this.props.firstName[0]}</h2> : <Icon />}
         </TableCell>
 
         <TableCell
@@ -35,13 +35,13 @@ class ContactListItem extends Component {
           className="contact_avatar"
         >
           <Avatar
-            alt={this.props.name}
-            src={this.props.picture_url || getRandomAvatar(this.props.name)}
+            alt={`${this.props.firstName} ${this.props.lastName}`}
+            src={this.getRandomAvatar()}
           />
         </TableCell>
 
         <TableCell align="left" className="contact_full_name">
-          {this.props.name}
+          {this.props.firstName} {this.props.lastName}
         </TableCell>
 
         <TableCell className="contact_email">
@@ -49,7 +49,7 @@ class ContactListItem extends Component {
         </TableCell>
 
         <TableCell className="contact_phone_number">
-          {this.props.phone_number}
+          {this.props.phoneNumber}
         </TableCell>
 
         <TableCell
@@ -58,17 +58,17 @@ class ContactListItem extends Component {
         >
           <Grid style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}>
             <IconButton
-              aria-label="Favorite"
-              className="contact_favorite_button"
+              aria-label="Starred"
+              className="contact_starred_button"
               onClick={this.handleStarClick}
             >
-              <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
+              <Icon>{this.props.starred ? 'star' : 'star_border'}</Icon>
             </IconButton>
 
             <IconButton
               aria-label="Edit"
               className="contact_edit_button"
-              onClick={this.handlePenClick}
+              onClick={this.props.handlePenClick}
             >
               <Icon>create</Icon>
             </IconButton>
@@ -118,17 +118,10 @@ class ContactListItem extends Component {
   }
 
   /**
-   * Add this contact to favorites
+   * Add this contact to starred contacts
    */
   handleStarClick = () => {
     this.props.dispatch(starContact(this.props.id));
-  }
-
-  /**
-   * Open modal for contact editing
-   */
-  handlePenClick = () => {
-    // Modal should be opened here
   }
 
   /**
@@ -154,25 +147,28 @@ class ContactListItem extends Component {
     this.handleOptionsClose();
     this.props.dispatch(removeContact(this.props.id));
   }
+
+  /**
+ * @returns {String} - Avatar image URL
+ */
+  getRandomAvatar = () => {
+    return `https://robohash.org/${this.props.firstName} ${this.props.lastName}.png`;
+  }
 }
 
 ContactListItem.propTypes = {
   id: PropTypes.number.isRequired,
-  picture_url: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  phone_number: PropTypes.string.isRequired,
-  favorite: PropTypes.bool.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  phoneNumber: PropTypes.string.isRequired,
+  company: PropTypes.string,
+  jobTitle: PropTypes.string,
+  notes: PropTypes.string,
+  starred: PropTypes.bool.isRequired,
   firstOfLetter: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  handlePenClick: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
-
-/**
- * @param {String} name 
- * @returns {String} - Avatar image URL
- */
-function getRandomAvatar(name) {
-  return `https://robohash.org/${name}.png`;
-}
 
 export default connect()(ContactListItem);

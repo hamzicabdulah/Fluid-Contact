@@ -1,15 +1,16 @@
 [
   {
     "id": 1,
-    "name": "Abdulah Hamzic",
+    "firstName": "Abdulah",
+    "lastName": "Hamzic",
     "email": "abdulahhamzic@gmail.com",
-    "phone_number": "+38977605851"
+    "phoneNumber": "+38977605851"
   },
   {
     "id": 2,
-    "picture_url": "https://goo.gl/1eYoth",
-    "name": "Abdulah Hamzic Junior",
+    "firstName": "Abdulah",
+    "lastName": "Hamzic 2",
     "email": "hamzic@live.com",
-    "phone_number": "+38970204573"
+    "phoneNumber": "+38970204573"
   }
 ]

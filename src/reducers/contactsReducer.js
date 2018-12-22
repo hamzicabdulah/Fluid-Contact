@@ -1,7 +1,7 @@
 import { STAR_CONTACT, EDIT_CONTACT, REMOVE_CONTACT } from '../actions/actionTypes';
 import contactsMockupData from '../data/contacts-mockup-data.json';
 const initialState = contactsMockupData.map(contact => {
-  return { ...contact, favorite: false };
+  return { ...contact, starred: false };
 });
 
 /**
@@ -16,7 +16,7 @@ export default function contactsReducer(state = initialState, action) {
       const updatedContacts = [...state];
       updatedContacts[contactIndex] = {
         ...updatedContacts[contactIndex],
-        favorite: !updatedContacts[contactIndex].favorite
+        starred: !updatedContacts[contactIndex].starred
       };
 
       return updatedContacts;
