@@ -25,7 +25,8 @@ export default function ContactListTable({ contacts, title }) {
             <ContactListItem
               {...contact}
               firstOfLetter={
-                !contactsSorted[index - 1] || contact.firstName[0] !== contactsSorted[index - 1].firstName[0]
+                !contactsSorted[index - 1] ||
+                contact.firstName[0] !== contactsSorted[index - 1].firstName[0]
               }
               key={contact.id}
             />

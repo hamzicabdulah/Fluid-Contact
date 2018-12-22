@@ -11,16 +11,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Grid from '@material-ui/core/Grid';
 import { starContact, removeContact } from '../actions/contactActions';
-import ContactFormModal from './ContactFormModal';
 
 class ContactListItem extends Component {
   state = {
     optionsMenu: null,
-    showActionButtons: false,
-    showContactFormModal: false
+    showActionButtons: false
   };
-
-  fullName = `${this.props.firstName} ${this.props.lastName}`;
 
   render() {
     return (
@@ -39,13 +35,13 @@ class ContactListItem extends Component {
           className="contact_avatar"
         >
           <Avatar
-            alt={this.fullName}
-            src={getRandomAvatar(this.fullName)}
+            alt={`${this.props.firstName} ${this.props.lastName}`}
+            src={this.getRandomAvatar()}
           />
         </TableCell>
 
         <TableCell align="left" className="contact_full_name">
-          {this.fullName}
+          {this.props.firstName} {this.props.lastName}
         </TableCell>
 
         <TableCell className="contact_email">
@@ -72,7 +68,7 @@ class ContactListItem extends Component {
             <IconButton
               aria-label="Edit"
               className="contact_edit_button"
-              onClick={this.handlePenClick}
+              onClick={this.props.handlePenClick}
             >
               <Icon>create</Icon>
             </IconButton>
@@ -103,12 +99,6 @@ class ContactListItem extends Component {
             </Menu>
           </Grid>
         </TableCell>
-        <ContactFormModal
-          {...this.props}
-          open={this.state.showContactFormModal}
-          handleClose={this.handleContactFormModalClose}
-          new={false}
-        />
       </TableRow>
     );
   }
@@ -135,20 +125,6 @@ class ContactListItem extends Component {
   }
 
   /**
-   * Open modal for contact editing
-   */
-  handlePenClick = () => {
-    this.setState({ showContactFormModal: true });
-  }
-
-  /**
-   * Close modal for contact editing
-   */
-  handleContactFormModalClose = () => {
-    this.setState({ showContactFormModal: false });
-  }
-
-  /**
    * Open options menu
    * 
    * @param {Object} event
@@ -171,6 +147,13 @@ class ContactListItem extends Component {
     this.handleOptionsClose();
     this.props.dispatch(removeContact(this.props.id));
   }
+
+  /**
+ * @returns {String} - Avatar image URL
+ */
+  getRandomAvatar = () => {
+    return `https://robohash.org/${this.props.firstName} ${this.props.lastName}.png`;
+  }
 }
 
 ContactListItem.propTypes = {
@@ -184,15 +167,8 @@ ContactListItem.propTypes = {
   notes: PropTypes.string,
   starred: PropTypes.bool.isRequired,
   firstOfLetter: PropTypes.bool.isRequired,
+  handlePenClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired
 };
-
-/**
- * @param {String} name 
- * @returns {String} - Avatar image URL
- */
-function getRandomAvatar(name) {
-  return `https://robohash.org/${name}.png`;
-}
 
 export default connect()(ContactListItem);
