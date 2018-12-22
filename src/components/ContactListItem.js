@@ -62,11 +62,11 @@ class ContactListItem extends Component {
         >
           <Grid style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}>
             <IconButton
-              aria-label="Favorite"
-              className="contact_favorite_button"
+              aria-label="Starred"
+              className="contact_starred_button"
               onClick={this.handleStarClick}
             >
-              <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
+              <Icon>{this.props.starred ? 'star' : 'star_border'}</Icon>
             </IconButton>
 
             <IconButton
@@ -128,7 +128,7 @@ class ContactListItem extends Component {
   }
 
   /**
-   * Add this contact to favorites
+   * Add this contact to starred contacts
    */
   handleStarClick = () => {
     this.props.dispatch(starContact(this.props.id));
@@ -182,7 +182,7 @@ ContactListItem.propTypes = {
   company: PropTypes.string,
   jobTitle: PropTypes.string,
   notes: PropTypes.string,
-  favorite: PropTypes.bool.isRequired,
+  starred: PropTypes.bool.isRequired,
   firstOfLetter: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired
 };

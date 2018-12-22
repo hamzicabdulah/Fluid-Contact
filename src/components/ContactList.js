@@ -9,8 +9,8 @@ class ContactList extends Component {
     return (
       <Grid>
         <ContactListTable
-          contacts={this.props.contacts.filter(contact => contact.favorite)}
-          title="Favorites"
+          contacts={this.props.contacts.filter(contact => contact.starred)}
+          title="Starred contacts"
         />
         <ContactListTable
           contacts={this.props.contacts}
