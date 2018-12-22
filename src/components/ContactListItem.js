@@ -9,22 +9,35 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Grid from '@material-ui/core/Grid';
 import { starContact, removeContact } from '../actions/contactActions';
 
 class ContactListItem extends Component {
   state = {
-    optionsMenu: null
+    optionsMenu: null,
+    showActionButtons: false
   };
 
   render() {
     return (
-      <TableRow>
+      <TableRow
+        hover={true}
+        onMouseOver={this.handleTableRowHover}
+        onMouseOut={this.handleTableRowMouseOut}
+      >
+        <TableCell padding="dense" className="contact_first_letter">
+          {this.props.firstOfLetter ? <h2>{this.props.name[0]}</h2> : <Icon />}
+        </TableCell>
+
         <TableCell
           align="right"
           padding="none"
           className="contact_avatar"
         >
-          <Avatar alt={this.props.name} src={`https://robohash.org/${this.props.name}.png`} />
+          <Avatar
+            alt={this.props.name}
+            src={this.props.picture_url || getRandomAvatar(this.props.name)}
+          />
         </TableCell>
 
         <TableCell align="left" className="contact_full_name">
@@ -39,49 +52,69 @@ class ContactListItem extends Component {
           {this.props.phone_number}
         </TableCell>
 
-        <TableCell align="right" className="contact_action_buttons">
-          <IconButton
-            aria-label="Favorite"
-            className="contact_favorite_button"
-            onClick={this.handleStarClick}
-          >
-            <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
-          </IconButton>
+        <TableCell
+          align="right"
+          className="contact_action_buttons"
+        >
+          <Grid style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}>
+            <IconButton
+              aria-label="Favorite"
+              className="contact_favorite_button"
+              onClick={this.handleStarClick}
+            >
+              <Icon>{this.props.favorite ? 'star' : 'star_border'}</Icon>
+            </IconButton>
 
-          <IconButton
-            aria-label="Edit"
-            className="contact_edit_button"
-            onClick={this.handlePenClick}
-          >
-            <Icon>create</Icon>
-          </IconButton>
+            <IconButton
+              aria-label="Edit"
+              className="contact_edit_button"
+              onClick={this.handlePenClick}
+            >
+              <Icon>create</Icon>
+            </IconButton>
 
-          <IconButton
-            aria-owns={this.state.optionsMenu ? 'options-menu' : undefined}
-            aria-haspopup="true"
-            aria-label="Options"
-            className="contact_options_button"
-            onClick={this.handleOptionsClick}
-          >
-            <Icon>more_vert</Icon>
-          </IconButton>
+            <IconButton
+              aria-owns={this.state.optionsMenu ? 'options-menu' : undefined}
+              aria-haspopup="true"
+              aria-label="Options"
+              className="contact_options_button"
+              onClick={this.handleOptionsClick}
+            >
+              <Icon>more_vert</Icon>
+            </IconButton>
 
-          <Menu
-            id="option-menu"
-            anchorEl={this.state.optionsMenu}
-            open={Boolean(this.state.optionsMenu)}
-            onClose={this.handleOptionsClose}
-          >
-            <MenuItem onClick={this.handleDeleteClick}>
-              <ListItemIcon>
-                <Icon>delete</Icon>
-              </ListItemIcon>
-              Delete
-            </MenuItem>
-          </Menu>
+            <Menu
+              id="option-menu"
+              anchorEl={this.state.optionsMenu}
+              open={Boolean(this.state.optionsMenu)}
+              className="options_menu"
+              onClose={this.handleOptionsClose}
+            >
+              <MenuItem className="remove_button" onClick={this.handleDeleteClick}>
+                <ListItemIcon>
+                  <Icon className="remove_icon">delete</Icon>
+                </ListItemIcon>
+                Delete
+              </MenuItem>
+            </Menu>
+          </Grid>
         </TableCell>
       </TableRow>
     );
+  }
+
+  /**
+   * Show contact item action buttons
+   */
+  handleTableRowHover = () => {
+    this.setState({ showActionButtons: true });
+  }
+
+  /**
+   * Hide contact item action buttons
+   */
+  handleTableRowMouseOut = () => {
+    this.setState({ showActionButtons: false });
   }
 
   /**
@@ -125,12 +158,21 @@ class ContactListItem extends Component {
 
 ContactListItem.propTypes = {
   id: PropTypes.number.isRequired,
-  picture_url: PropTypes.string.isRequired,
+  picture_url: PropTypes.string,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
   phone_number: PropTypes.string.isRequired,
   favorite: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired
+  firstOfLetter: PropTypes.bool.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
+
+/**
+ * @param {String} name 
+ * @returns {String} - Avatar image URL
+ */
+function getRandomAvatar(name) {
+  return `https://robohash.org/${name}.png`;
+}
 
 export default connect()(ContactListItem);

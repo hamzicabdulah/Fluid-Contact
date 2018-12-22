@@ -1,9 +1,15 @@
 [
   {
     "id": 1,
-    "picture_url": "https://goo.gl/i8H1GJ",
     "name": "Abdulah Hamzic",
     "email": "abdulahhamzic@gmail.com",
     "phone_number": "+38977605851"
+  },
+  {
+    "id": 2,
+    "picture_url": "https://goo.gl/1eYoth",
+    "name": "Abdulah Hamzic Junior",
+    "email": "hamzic@live.com",
+    "phone_number": "+38970204573"
   }
 ]
