@@ -152,7 +152,7 @@ class ContactListItem extends Component {
  * @returns {String} - Avatar image URL
  */
   getRandomAvatar = () => {
-    return `https://robohash.org/${this.props.firstName} ${this.props.lastName}.png`;
+    return `https://robohash.org/${this.props.id}.png`;
   }
 }
 

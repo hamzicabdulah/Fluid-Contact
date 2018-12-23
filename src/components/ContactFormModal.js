@@ -29,7 +29,7 @@ class ContactFormModal extends Component {
    */
   componentDidMount() {
     Object.keys(this.state).forEach(key => {
-      this.setState({ [key]: this.props[key] });
+      this.setState({ [key]: this.props[key] || '' });
     });
   }
 
@@ -176,7 +176,11 @@ class ContactFormModal extends Component {
    * Update the contact or create a new one in the state
    */
   handleContactSave = () => {
-    this.props.dispatch(editContact(this.props.id, this.state));
+    if (this.props.new) {
+      // Create a new contact
+    } else {
+      this.props.dispatch(editContact(this.props.id, this.state));
+    }
     this.props.handleClose();
   };
 }

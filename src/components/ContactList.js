@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import ContactListItem from './ContactListItem';
 import ContactFormModal from './ContactFormModal';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { editContact } from '../actions/contactActions';
 
 class ContactList extends Component {
@@ -32,9 +34,17 @@ class ContactList extends Component {
           <ContactFormModal
             {...this.state.contactToEdit}
             handleClose={this.handleContactFormModalClose}
-            new={false}
+            new={!!this.state.contactToEdit}
           />
         }
+        <Fab
+          color="secondary"
+          aria-label="Add"
+          className="create_contact_button"
+          onClick={() => this.handleContactFormModalOpen()}
+        >
+          <AddIcon />
+        </Fab>
       </Grid>
     );
   }

@@ -12,5 +12,12 @@
     "lastName": "Hamzic 2",
     "email": "hamzic@live.com",
     "phoneNumber": "+38970204573"
+  },
+  {
+    "id": 3,
+    "firstName": "Someone",
+    "lastName": "Else",
+    "email": "someone_else@gmail.com",
+    "phoneNumber": "234923049023"
   }
 ]
