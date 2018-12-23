@@ -25,7 +25,7 @@ class ContactInfoModal extends Component {
         <DialogTitle id="contact-info-title" className="contact_info_title">
           <Grid container spacing={24}>
 
-            <Grid item xs={2} sm={2}>
+            <Grid className="contact_info_grid" item xs={2} sm={2}>
               <Avatar
                 alt={this.props.firstName[0].toUpperCase()}
                 src={this.getRandomAvatar()}
@@ -33,11 +33,11 @@ class ContactInfoModal extends Component {
               />
             </Grid>
 
-            <Grid item xs={5} sm={6}>
+            <Grid className="contact_info_grid" item xs={5} sm={6}>
               {this.props.firstName} {this.props.lastName}
             </Grid>
 
-            <Grid item xs={5} sm={4}>
+            <Grid className="contact_info_grid" item xs={5} sm={4}>
               <ContactActionButtons {...this.props} additionalButtons={[this.closeButton()]} />
             </Grid>
 
@@ -52,7 +52,7 @@ class ContactInfoModal extends Component {
           <Grid container spacing={24}>
             {
               !!this.props.company &&
-              <Grid item xs={2}>
+              <Grid className="contact_info_grid" item xs={2}>
                 <DialogContentText className="contact_info_icon">
                   <Icon className="contact_info_company_icon">
                     business
@@ -62,7 +62,7 @@ class ContactInfoModal extends Component {
             }
             {
               !!this.props.company &&
-              <Grid item xs={10}>
+              <Grid className="contact_info_grid" item xs={10}>
                 <DialogContentText className="contact_info_company">
                   {this.props.jobTitle ? `${this.props.jobTitle}, ` : ''}
                   {this.props.company}
@@ -72,7 +72,7 @@ class ContactInfoModal extends Component {
 
             {
               !!this.props.email &&
-              <Grid item xs={2}>
+              <Grid className="contact_info_grid" item xs={2}>
                 <DialogContentText className="contact_info_icon">
                   <Icon className="contact_info_email_icon">
                     email
@@ -82,14 +82,14 @@ class ContactInfoModal extends Component {
             }
             {
               !!this.props.email &&
-              <Grid item xs={10}>
+              <Grid className="contact_info_grid" item xs={10}>
                 <DialogContentText className="contact_info_email">
                   {this.props.email}
                 </DialogContentText>
               </Grid>
             }
 
-            <Grid item xs={2}>
+            <Grid className="contact_info_grid" item xs={2}>
               <DialogContentText className="contact_info_icon">
                 <Icon className="contact_info_phone_icon">
                   phone
@@ -97,7 +97,7 @@ class ContactInfoModal extends Component {
               </DialogContentText>
             </Grid>
 
-            <Grid item xs={10}>
+            <Grid className="contact_info_grid" item xs={10}>
               <DialogContentText className="contact_info_phone">
                 {this.props.phoneNumber}
               </DialogContentText>
