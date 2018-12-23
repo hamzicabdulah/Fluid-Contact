@@ -1,3 +1,7 @@
+body {
+  margin: 0;
+}
+
 .contact_list_item:hover {
   cursor: pointer;
 }
@@ -94,6 +98,26 @@
   color: rgba(0, 0, 0, 0.54) !important;
 }
 
+.search {
+  background: #6877ca !important;
+  padding: 7px 3px !important;
+  border-radius: 2px;
+  margin: 0 60px !important;
+}
+
+.navbar_title {
+  min-width: 150px !important;
+}
+
+.search > div:first-child {
+  text-align: center !important;
+  margin-top: 3px;
+}
+
+.search > div:nth-child(2) > div {
+  width: 98% !important;
+}
+
 @media only screen and (max-width: 1024px) {
   /* For mobile: */
   .contact_email {
@@ -114,5 +138,13 @@
   .contact_form_avatar, .contact_info_avatar {
     width: 45px !important;
     height: 45px !important;
+  }
+
+  .navbar_title {
+    display: none !important;
+  }
+
+  .search {
+    margin: 0 15px 0 5px !important;
   }
 }
