@@ -1,4 +1,9 @@
-import { STAR_CONTACT, EDIT_CONTACT, REMOVE_CONTACT } from '../actions/actionTypes';
+import {
+  STAR_CONTACT,
+  EDIT_CONTACT,
+  REMOVE_CONTACT,
+  CREATE_CONTACT
+} from '../actions/actionTypes';
 import contactsMockupData from '../data/contacts-mockup-data.json';
 const initialState = contactsMockupData.map(contact => {
   return { ...contact, starred: false };
@@ -35,6 +40,17 @@ export default function contactsReducer(state = initialState, action) {
 
     case REMOVE_CONTACT: {
       return state.filter(contact => contact.id !== action.contactId);
+    }
+
+    case CREATE_CONTACT: {
+      return [
+        ...state,
+        {
+          ...action.contactData,
+          id: state.length + 1,
+          starred: false
+        }
+      ];
     }
 
     default:

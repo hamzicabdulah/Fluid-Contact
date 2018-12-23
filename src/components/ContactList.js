@@ -9,6 +9,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import ContactListItem from './ContactListItem';
 import ContactFormModal from './ContactFormModal';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 import { editContact } from '../actions/contactActions';
 
 class ContactList extends Component {
@@ -32,9 +34,17 @@ class ContactList extends Component {
           <ContactFormModal
             {...this.state.contactToEdit}
             handleClose={this.handleContactFormModalClose}
-            new={false}
+            new={!this.state.contactToEdit}
           />
         }
+        <Fab
+          color="secondary"
+          aria-label="Add"
+          className="create_contact_button"
+          onClick={() => this.handleContactFormModalOpen()}
+        >
+          <AddIcon />
+        </Fab>
       </Grid>
     );
   }
@@ -46,8 +56,11 @@ class ContactList extends Component {
    * @param {String} title
    */
   ContactListTable = (contacts, title) => {
-    let contactsSorted = contacts.sort((lastContactName, contact) => {
-      return (lastContactName > contact.firstName) ? 1 : -1;
+    let contactsSorted = [...contacts].sort((previousContact, currentContact) => {
+      return (
+        previousContact.firstName.toLowerCase() >
+        currentContact.firstName.toLowerCase()
+      ) ? 1 : -1;
     });
 
     return (
@@ -66,7 +79,8 @@ class ContactList extends Component {
                 {...contact}
                 firstOfLetter={
                   !contactsSorted[index - 1] ||
-                  contact.firstName[0] !== contactsSorted[index - 1].firstName[0]
+                  contact.firstName[0].toLowerCase() !==
+                  contactsSorted[index - 1].firstName[0].toLowerCase()
                 }
                 key={contact.id}
                 handlePenClick={() => this.handleContactFormModalOpen(contact)}

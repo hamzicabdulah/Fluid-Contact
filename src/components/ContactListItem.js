@@ -26,7 +26,7 @@ class ContactListItem extends Component {
         onMouseOut={this.handleTableRowMouseOut}
       >
         <TableCell padding="dense" className="contact_first_letter">
-          {this.props.firstOfLetter ? <h2>{this.props.firstName[0]}</h2> : <Icon />}
+          {this.props.firstOfLetter ? <h2>{this.props.firstName[0].toUpperCase()}</h2> : <Icon />}
         </TableCell>
 
         <TableCell
@@ -152,7 +152,7 @@ class ContactListItem extends Component {
  * @returns {String} - Avatar image URL
  */
   getRandomAvatar = () => {
-    return `https://robohash.org/${this.props.firstName} ${this.props.lastName}.png`;
+    return `https://robohash.org/${this.props.id}.png`;
   }
 }
 

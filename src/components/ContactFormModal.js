@@ -10,8 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
-import { editContact } from '../actions/contactActions';
-//import { editContact } from '../actions/contactActions';
+import { editContact, createContact } from '../actions/contactActions';
 
 class ContactFormModal extends Component {
   state = {
@@ -29,7 +28,7 @@ class ContactFormModal extends Component {
    */
   componentDidMount() {
     Object.keys(this.state).forEach(key => {
-      this.setState({ [key]: this.props[key] });
+      this.setState({ [key]: this.props[key] || '' });
     });
   }
 
@@ -176,7 +175,11 @@ class ContactFormModal extends Component {
    * Update the contact or create a new one in the state
    */
   handleContactSave = () => {
-    this.props.dispatch(editContact(this.props.id, this.state));
+    if (this.props.new) {
+      this.props.dispatch(createContact(this.state));
+    } else {
+      this.props.dispatch(editContact(this.props.id, this.state));
+    }
     this.props.handleClose();
   };
 }
