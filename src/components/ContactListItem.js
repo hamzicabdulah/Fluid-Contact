@@ -5,17 +5,14 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Grid from '@material-ui/core/Grid';
-import { starContact, removeContact } from '../actions/contactActions';
+import ContactInfoModal from './ContactInfoModal';
+import ContactActionButtons from './ContactActionButtons';
 
 class ContactListItem extends Component {
   state = {
     optionsMenu: null,
-    showActionButtons: false
+    showActionButtons: false,
+    contactInfoModalOpen: false
   };
 
   render() {
@@ -24,6 +21,8 @@ class ContactListItem extends Component {
         hover={true}
         onMouseOver={this.handleTableRowHover}
         onMouseOut={this.handleTableRowMouseOut}
+        onClick={this.handleContactListItemClick}
+        className="contact_list_item"
       >
         <TableCell padding="dense" className="contact_first_letter">
           {this.props.firstOfLetter ? <h2>{this.props.firstName[0].toUpperCase()}</h2> : <Icon />}
@@ -35,7 +34,7 @@ class ContactListItem extends Component {
           className="contact_avatar"
         >
           <Avatar
-            alt={`${this.props.firstName} ${this.props.lastName}`}
+            alt={this.props.firstName[0].toUpperCase()}
             src={this.getRandomAvatar()}
           />
         </TableCell>
@@ -55,50 +54,20 @@ class ContactListItem extends Component {
         <TableCell
           align="right"
           className="contact_action_buttons"
+          onClick={this.ignoreParentClickEvent}
         >
-          <Grid style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}>
-            <IconButton
-              aria-label="Starred"
-              className="contact_starred_button"
-              onClick={this.handleStarClick}
-            >
-              <Icon>{this.props.starred ? 'star' : 'star_border'}</Icon>
-            </IconButton>
-
-            <IconButton
-              aria-label="Edit"
-              className="contact_edit_button"
-              onClick={this.props.handlePenClick}
-            >
-              <Icon>create</Icon>
-            </IconButton>
-
-            <IconButton
-              aria-owns={this.state.optionsMenu ? 'options-menu' : undefined}
-              aria-haspopup="true"
-              aria-label="Options"
-              className="contact_options_button"
-              onClick={this.handleOptionsClick}
-            >
-              <Icon>more_vert</Icon>
-            </IconButton>
-
-            <Menu
-              id="option-menu"
-              anchorEl={this.state.optionsMenu}
-              open={Boolean(this.state.optionsMenu)}
-              className="options_menu"
-              onClose={this.handleOptionsClose}
-            >
-              <MenuItem className="remove_button" onClick={this.handleDeleteClick}>
-                <ListItemIcon>
-                  <Icon className="remove_icon">delete</Icon>
-                </ListItemIcon>
-                Delete
-              </MenuItem>
-            </Menu>
-          </Grid>
+          <ContactActionButtons
+            {...this.props}
+            style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}
+            handleTableRowMouseOut={this.handleTableRowMouseOut}
+          />
         </TableCell>
+
+        <ContactInfoModal
+          {...this.props}
+          open={this.state.contactInfoModalOpen}
+          handleClose={this.handleContactInfoModalClose}
+        />
       </TableRow>
     );
   }
@@ -118,41 +87,39 @@ class ContactListItem extends Component {
   }
 
   /**
-   * Add this contact to starred contacts
-   */
-  handleStarClick = () => {
-    this.props.dispatch(starContact(this.props.id));
-  }
-
-  /**
-   * Open options menu
+   * Avoid event bubbling... In this case - 
+   *  ignore the handleContactListItemClick event when clicking the contact item action buttons
    * 
    * @param {Object} event
    */
-  handleOptionsClick = (event) => {
-    this.setState({ optionsMenu: event.currentTarget });
+  ignoreParentClickEvent(event) {
+    if (event) event.stopPropagation();
+    if (event.nativeEvent) event.nativeEvent.stopImmediatePropagation();
   }
 
   /**
-   * Close options menu
+   * @returns {String} - Avatar image URL
    */
-  handleOptionsClose = () => {
-    this.setState({ optionsMenu: null });
-  }
-
-  /**
-   * Remove this contact from the list and close the opened menu
-   */
-  handleDeleteClick = () => {
-    this.handleOptionsClose();
-    this.props.dispatch(removeContact(this.props.id));
-  }
-
-  /**
- * @returns {String} - Avatar image URL
- */
   getRandomAvatar = () => {
     return `https://robohash.org/${this.props.id}.png`;
+  }
+
+  /**
+   * Open contact info modal
+   */
+  handleContactListItemClick = () => {
+    this.setState({ contactInfoModalOpen: true });
+  }
+
+  /**
+   * Close contact info modal
+   * 
+   * @param {Object} event
+   */
+  handleContactInfoModalClose = (event) => {
+    this.handleTableRowMouseOut();
+    this.ignoreParentClickEvent(event);
+    this.setState({ contactInfoModalOpen: false });
   }
 }
 
@@ -167,7 +134,7 @@ ContactListItem.propTypes = {
   notes: PropTypes.string,
   starred: PropTypes.bool.isRequired,
   firstOfLetter: PropTypes.bool.isRequired,
-  handlePenClick: PropTypes.func.isRequired,
+  handleEditClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired
 };
 

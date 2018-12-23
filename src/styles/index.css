@@ -1,3 +1,11 @@
+.contact_list_item:hover {
+  cursor: pointer;
+}
+
+.contact_list_item {
+  height: 60px !important;
+}
+
 .contact_first_letter {
   color: purple !important;
   padding-right: 5px !important;
@@ -7,11 +15,15 @@
   font-weight: 500 !important;
 }
 
-.contact_action_butons {
-  width: 20%;
+.contact_action_buttons {
+  text-align: right !important;
 }
 
-.contact_form_avatar {
+.contact_action_buttons > button {
+  padding: 7px;
+}
+
+.contact_form_avatar, .contact_info_avatar {
   width: 60px !important;
   height: 60px !important;
 }
@@ -36,14 +48,56 @@
   right: 5% !important;
 }
 
+.contact_avatar > div {
+  background: #e1eaea !important;
+}
+
+.contact_info_content {
+  margin: 10px 0 20px !important;
+}
+
+.contact_info_content .MuiGrid-item-2 {
+  padding: 3px 0 !important;
+}
+
+.contact_info_avatar {
+  background: white !important;
+}
+
+.contact_info_title {
+  background: #eaf1f9 !important;
+}
+
+.contact_info_title .MuiGrid-item-2 {
+  font-weight: 400 !important;
+}
+
+.contact_info_modal .MuiGrid-item-2 {
+  align-self: center !important;
+}
+
+.contact_info_details_title {
+  margin: 30px 0 !important;
+  font-weight: 500 !important;
+}
+
+.contact_info_icon {
+  text-align: center !important;
+}
+
+.contact_info_details_title, .contact_info_content .MuiGrid-item-2 > p {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.contact_info_content .material-icons {
+  margin-top: 6px !important;
+  color: rgba(0, 0, 0, 0.54) !important;
+}
+
 @media only screen and (max-width: 1024px) {
   /* For mobile: */
   .contact_email {
     display: none !important;
-  }
-
-  .contact_action_butons {
-    width: 30% !important;
   }
 }
 
@@ -57,11 +111,7 @@
     display: none !important;
   }
 
-  .contact_action_butons {
-    width: 35%;
-  }
-
-  .contact_form_avatar {
+  .contact_form_avatar, .contact_info_avatar {
     width: 45px !important;
     height: 45px !important;
   }

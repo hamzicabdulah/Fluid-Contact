@@ -39,6 +39,7 @@ class ContactFormModal extends Component {
         aria-labelledby="contact-form-title"
         className="contact_form_modal"
         onClose={this.props.handleClose}
+        fullWidth={true}
       >
 
         <DialogTitle id="contact-form-title" className="contact_form_title">

@@ -83,7 +83,7 @@ class ContactList extends Component {
                   contactsSorted[index - 1].firstName[0].toLowerCase()
                 }
                 key={contact.id}
-                handlePenClick={() => this.handleContactFormModalOpen(contact)}
+                handleEditClick={() => this.handleContactFormModalOpen(contact)}
               />
             )
           }
