@@ -5,6 +5,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Icon from '@material-ui/core/Icon';
+import Media from 'react-media';
 import ContactInfoModal from './ContactInfoModal';
 import ContactActionButtons from './ContactActionButtons';
 
@@ -56,11 +57,23 @@ class ContactListItem extends Component {
           className="contact_action_buttons"
           onClick={this.ignoreParentClickEvent}
         >
-          <ContactActionButtons
-            {...this.props}
-            style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}
-            handleTableRowMouseOut={this.handleTableRowMouseOut}
-          />
+          <Media query="(max-width: 968px)">
+            {matches =>
+              matches ? (
+                <ContactActionButtons
+                  {...this.props}
+                  style={{visibility: 'visible'}}
+                  handleTableRowMouseOut={this.handleTableRowMouseOut}
+                />
+              ) : (
+                <ContactActionButtons
+                  {...this.props}
+                  style={this.state.showActionButtons ? {} : { visibility: 'hidden' }}
+                  handleTableRowMouseOut={this.handleTableRowMouseOut}
+                />
+              )
+            }
+          </Media>
         </TableCell>
 
         <ContactInfoModal
