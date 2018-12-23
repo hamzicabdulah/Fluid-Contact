@@ -106,7 +106,7 @@ body {
 }
 
 .navbar_title {
-  min-width: 150px !important;
+  min-width: 140px !important;
 }
 
 .search > div:first-child {
@@ -118,10 +118,52 @@ body {
   width: 98% !important;
 }
 
+.sidebar_container {
+  width: 20% !important;
+}
+
+.sidebar {
+  border-right: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.sidebar > div > div:nth-child(2) > span {
+  font-weight: 500 !important;
+}
+
+.sidebar_divider {
+  margin: 8px auto !important;
+}
+
+.sidebar_contacts_button > div > span {
+  color: #3f51b5 !important;
+}
+
+.contact_list_container {
+  width: 80% !important;
+}
+
 @media only screen and (max-width: 1024px) {
   /* For mobile: */
   .contact_email {
     display: none !important;
+  }
+
+  .sidebar_container {
+    width: 30% !important;
+  }
+  
+  .contact_list_container {
+    width: 70% !important;
+  }
+}
+
+@media only screen and (max-width: 968px) {
+  .sidebar_container {
+    display: none !important;
+  }
+
+  .contact_list_container {
+    width: 100% !important;
   }
 }
 

@@ -150,6 +150,8 @@ class ContactFormModal extends Component {
           word.toLowerCase();
       }).join('');
 
+    const requiredFields = ['first_name', 'phone_number'];
+
     return (
       <TextField
         fullWidth
@@ -159,6 +161,7 @@ class ContactFormModal extends Component {
         value={this.state[labelCamelCase]}
         onChange={this.handleTextFieldChange(labelCamelCase)}
         margin="dense"
+        required={requiredFields.includes(labelSnakeCase) ? true : false}
       />
     );
   }
