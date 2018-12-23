@@ -25,7 +25,7 @@ class ContactInfoModal extends Component {
         <DialogTitle id="contact-info-title" className="contact_info_title">
           <Grid container spacing={24}>
 
-            <Grid item xs={2}>
+            <Grid item xs={2} sm={2}>
               <Avatar
                 alt={this.props.firstName[0].toUpperCase()}
                 src={this.getRandomAvatar()}
@@ -33,11 +33,11 @@ class ContactInfoModal extends Component {
               />
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid item xs={5} sm={6}>
               {this.props.firstName} {this.props.lastName}
             </Grid>
 
-            <Grid item xs={5}>
+            <Grid item xs={5} sm={4}>
               <ContactActionButtons {...this.props} additionalButtons={[this.closeButton()]} />
             </Grid>
 

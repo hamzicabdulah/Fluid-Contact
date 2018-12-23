@@ -12,6 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import { editContact, createContact } from '../actions/contactActions';
 
+const requiredFields = ['firstName', 'phoneNumber'];
+
 class ContactFormModal extends Component {
   state = {
     firstName: '',
@@ -48,7 +50,7 @@ class ContactFormModal extends Component {
 
         <DialogContent className="contact_form_content">
           <form className="contact_form" noValidate autoComplete="off">
-            <Grid container spacing={24}>
+            <Grid container spacing={8}>
 
               <Grid item xs={2}>
                 <Avatar
@@ -150,8 +152,6 @@ class ContactFormModal extends Component {
           word.toLowerCase();
       }).join('');
 
-    const requiredFields = ['first_name', 'phone_number'];
-
     return (
       <TextField
         fullWidth
@@ -161,7 +161,7 @@ class ContactFormModal extends Component {
         value={this.state[labelCamelCase]}
         onChange={this.handleTextFieldChange(labelCamelCase)}
         margin="dense"
-        required={requiredFields.includes(labelSnakeCase) ? true : false}
+        required={requiredFields.includes(labelCamelCase) ? true : false}
       />
     );
   }
@@ -179,12 +179,14 @@ class ContactFormModal extends Component {
    * Update the contact or create a new one in the state
    */
   handleContactSave = () => {
-    if (this.props.new) {
-      this.props.dispatch(createContact(this.state));
-    } else {
-      this.props.dispatch(editContact(this.props.id, this.state));
+    if (requiredFields.every(field => this.state[field] && this.state[field].length)) {
+      if (this.props.new) {
+        this.props.dispatch(createContact(this.state));
+      } else {
+        this.props.dispatch(editContact(this.props.id, this.state));
+      }
+      this.props.handleClose();
     }
-    this.props.handleClose();
   };
 }
 

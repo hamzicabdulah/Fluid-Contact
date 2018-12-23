@@ -32,6 +32,10 @@ body {
   height: 60px !important;
 }
 
+.contact_form_avatar {
+  margin: 0 auto;
+}
+
 .contact_form .MuiGrid-item-2 {
   text-align: center !important;
   align-self: center !important;
@@ -175,6 +179,10 @@ body {
 
   .contact_email, .contact_phone_number {
     display: none !important;
+  }
+
+  .contact_form_modal > div:nth-child(2) > div, .contact_info_modal > div:nth-child(2) > div {
+    margin: 13px !important;
   }
 
   .contact_form_avatar, .contact_info_avatar {
