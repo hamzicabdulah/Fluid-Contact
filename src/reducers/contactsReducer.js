@@ -47,7 +47,8 @@ export default function contactsReducer(state = initialState, action) {
         ...state,
         {
           ...action.contactData,
-          id: state.length,
+          id: state.length + 1,
+          starred: false
         }
       ];
     }

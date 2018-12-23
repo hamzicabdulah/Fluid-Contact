@@ -10,8 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
-import { editContact } from '../actions/contactActions';
-//import { editContact } from '../actions/contactActions';
+import { editContact, createContact } from '../actions/contactActions';
 
 class ContactFormModal extends Component {
   state = {
@@ -177,7 +176,7 @@ class ContactFormModal extends Component {
    */
   handleContactSave = () => {
     if (this.props.new) {
-      // Create a new contact
+      this.props.dispatch(createContact(this.state));
     } else {
       this.props.dispatch(editContact(this.props.id, this.state));
     }

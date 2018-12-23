@@ -34,7 +34,7 @@ class ContactList extends Component {
           <ContactFormModal
             {...this.state.contactToEdit}
             handleClose={this.handleContactFormModalClose}
-            new={!!this.state.contactToEdit}
+            new={!this.state.contactToEdit}
           />
         }
         <Fab
@@ -56,8 +56,11 @@ class ContactList extends Component {
    * @param {String} title
    */
   ContactListTable = (contacts, title) => {
-    let contactsSorted = contacts.sort((lastContactName, contact) => {
-      return (lastContactName > contact.firstName) ? 1 : -1;
+    let contactsSorted = [...contacts].sort((previousContact, currentContact) => {
+      return (
+        previousContact.firstName.toLowerCase() >
+        currentContact.firstName.toLowerCase()
+      ) ? 1 : -1;
     });
 
     return (
@@ -76,7 +79,8 @@ class ContactList extends Component {
                 {...contact}
                 firstOfLetter={
                   !contactsSorted[index - 1] ||
-                  contact.firstName[0] !== contactsSorted[index - 1].firstName[0]
+                  contact.firstName[0].toLowerCase() !==
+                  contactsSorted[index - 1].firstName[0].toLowerCase()
                 }
                 key={contact.id}
                 handlePenClick={() => this.handleContactFormModalOpen(contact)}
