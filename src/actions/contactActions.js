@@ -1,4 +1,9 @@
-import { STAR_CONTACT, EDIT_CONTACT, REMOVE_CONTACT } from './actionTypes';
+import {
+  STAR_CONTACT,
+  EDIT_CONTACT,
+  REMOVE_CONTACT,
+  CREATE_CONTACT
+} from './actionTypes';
 
 /**
  * Return an action that is used to add a contact to starred contacts
@@ -25,4 +30,12 @@ export function editContact(contactId, data) {
  */
 export function removeContact(contactId) {
   return { type: REMOVE_CONTACT, contactId };
+}
+
+/**
+ * @param {Object} contactData
+ * @returns {Object}
+ */
+export function createContact(contactData) {
+  return { type: CREATE_CONTACT, contactData };
 }
