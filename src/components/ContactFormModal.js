@@ -60,55 +60,55 @@ class ContactFormModal extends Component {
                 />
               </Grid>
 
-              <Grid item xs={5}>
+              <Grid item xs={5} className="contact_form_text_grid">
                 {this.contactFormTextField('First Name')}
               </Grid>
 
-              <Grid item xs={5}>
+              <Grid item xs={5} className="contact_form_text_grid">
                 {this.contactFormTextField('Last Name')}
               </Grid>
 
-              <Grid item xs={2}>
+              <Grid item xs={2} className="contact_form_icon_grid">
                 <Icon className="contact_form_company_icon">
                   business
                 </Icon>
               </Grid>
 
-              <Grid item xs={5}>
+              <Grid item xs={5} className="contact_form_text_grid">
                 {this.contactFormTextField('Company')}
               </Grid>
 
-              <Grid item xs={5}>
+              <Grid item xs={5} className="contact_form_text_grid">
                 {this.contactFormTextField('Job Title')}
               </Grid>
 
-              <Grid item xs={2}>
+              <Grid item xs={2} className="contact_form_icon_grid">
                 <Icon className="contact_form_email_icon">
                   email
                 </Icon>
               </Grid>
 
-              <Grid item xs={10}>
+              <Grid item xs={10} className="contact_form_text_grid">
                 {this.contactFormTextField('Email')}
               </Grid>
 
-              <Grid item xs={2}>
+              <Grid item xs={2} className="contact_form_icon_grid">
                 <Icon className="contact_form_phone_icon">
                   phone
                 </Icon>
               </Grid>
 
-              <Grid item xs={10}>
+              <Grid item xs={10} className="contact_form_text_grid">
                 {this.contactFormTextField('Phone Number')}
               </Grid>
 
-              <Grid item xs={2}>
+              <Grid item xs={2} className="contact_form_icon_grid">
                 <Icon className="contact_form_notes_icon">
                   speaker_notes
                 </Icon>
               </Grid>
 
-              <Grid item xs={10}>
+              <Grid item xs={10} className="contact_form_text_grid">
                 {this.contactFormTextField('Notes')}
               </Grid>
 
